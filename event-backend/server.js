@@ -5,7 +5,9 @@ import eventRoutes from "./routes/events.js";
 import guestRoutes from './routes/guest.js';
 import http from 'http';
 import { Server } from 'socket.io';
-import "dotenv/config";
+// import "dotenv/config";
+import dotenv from 'dotenv';
+dotenv.config();
 import cors from "cors";
 
 const PORT = process.env.PORT || 5000;

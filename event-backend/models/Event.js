@@ -21,12 +21,14 @@ const eventSchema = new mongoose.Schema(
       default: '',
       trim: true,
     },
-    // This field connects the event to a user by storing the user's ObjectId.
-    // It references the 'User' collection, so you can later populate it to retrieve user details.
     organizer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
+    },
+    imageUrl: {
+      type: String,
+      default: "",
     },
   },
   { timestamps: true }

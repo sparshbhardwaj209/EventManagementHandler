@@ -4,15 +4,11 @@ export default function EventList({ events, setEvents }) {
   const handleDelete = async (id) => {
     console.log("Attempting to delete event with ID:", id);
     try {
-      const response = await axios.delete(
-        `${process.env.REACT_APP_API_URL}/api/events/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      console.log("Delete response:", response.data);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/events/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       // Remove the deleted event from state
       setEvents(events.filter((event) => event._id !== id));
       alert("Event deleted successfully");
@@ -28,6 +24,13 @@ export default function EventList({ events, setEvents }) {
       {events.map((event) => (
         <div key={event._id} className="event-item">
           <h3>{event.title}</h3>
+          {event.imageUrl && (
+            <img
+              src={event.imageUrl}
+              alt={event.title}
+              style={{ maxWidth: "100%", height: "auto", marginBottom: "10px" }}
+            />
+          )}
           <p>{event.description}</p>
           <p>Date: {new Date(event.date).toLocaleDateString()}</p>
           <p>Location: {event.location}</p>

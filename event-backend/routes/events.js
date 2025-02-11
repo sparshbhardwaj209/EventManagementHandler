@@ -1,15 +1,50 @@
 import express from "express";
 import Event from "../models/Event.js";
 import { auth } from "../middleware/auth.js";
+import multer from "multer";
+import cloudinary from "../config/cloudinary.js";
+
+const storage = multer.memoryStorage();
+const upload = multer({
+  storage,
+  limits: { fileSize: 500 * 1024 }, // limit file size to 500KB
+});
 
 const router = express.Router();
 
 // Create Event
-router.post("/", auth, async (req, res) => {
-  const event = new Event({
+router.post("/", auth, upload.single("image"), async (req, res) => {
+  let imageUrl = "";
+  if (req.file) {
+    // Convert file buffer to a base64-encoded string
+    const fileStr = req.file.buffer.toString("base64");
+    const dataUri = `data:${req.file.mimetype};base64,${fileStr}`;
+
+    // Upload the image to Cloudinary
+    const uploadResult = await new Promise((resolve, reject) => {
+      cloudinary.uploader.upload(
+        dataUri,
+        { folder: "events", resource_type: "image" },
+        (error, result) => {
+          if (error) return reject(error);
+          resolve(result);
+        }
+      );
+    });
+    imageUrl = uploadResult.secure_url;
+  }
+
+  const eventData = {
     ...req.body,
     organizer: req.user._id,
-  });
+    imageUrl, // will be an empty string if no image was uploaded
+  };
+
+  // const event = new Event({
+  //   ...req.body,
+  //   organizer: req.user._id,
+  // });
+  const event = new Event(eventData);
   await event.save();
   res.status(201).send(event);
 });
