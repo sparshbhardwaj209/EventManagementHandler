@@ -38,7 +38,7 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-    
+
     //finding user by email
     const user = await User.findOne({ email });
     if (!user) {
@@ -48,18 +48,36 @@ router.post("/login", async (req, res) => {
     // if user exist now comparing passwords
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return res.status(401).json({ message: "Invalid credentials" });
     }
 
     // Generating JWT token
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
-    res.json({ 
-        token,
-        userId: user._id,
-        role: user.role 
-      });
+    res.json({
+      token,
+      userId: user._id,
+      role: user.role,
+    });
   } catch (err) {
-    res.status(500).send({message: 'Server error'});
+    res.status(500).send({ message: "Server error" });
+  }
+});
+
+// Guest Login (No password)
+router.post("/guest", async (req, res) => {
+  try {
+    const guest = new User({ role: "guest" });
+    await guest.save();
+
+    const token = jwt.sign({ userId: guest._id }, JWT_SECRET);
+
+    res.status(201).json({
+      token,
+      userId: guest._id,
+      role: guest.role,
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
   }
 });
 

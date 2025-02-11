@@ -5,14 +5,18 @@ const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
-      required: true,
+      required: function () {
+        return this.role !== "guest";
+      },
       lowercase: true,
       unique: true,
       trim: true,
     },
     password: {
       type: String,
-      required: [true, "Password is required"],
+      required: function () {
+        return this.role !== "guest";
+      },
       minLength: [6, "Password must be at least 6 characters long"],
     },
     role: {
