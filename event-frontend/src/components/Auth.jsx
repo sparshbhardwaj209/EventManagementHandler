@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import { useAuth } from '../context/authContext';
-import { useNavigate } from 'react-router-dom';
 
 
 export default function Auth() {
   const { login, register, guestLogin } = useAuth();
-  const navigate = useNavigate();
   const [isRegister, setIsRegister] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -52,11 +50,6 @@ export default function Auth() {
         <button type="submit">{isRegister ? 'Register' : 'Login'}</button>
       </form>
       <button onClick={guestLogin}>Guest Login</button>
-
-      {/* Temporary button to test direct navigation */}
-      <button onClick={() => navigate('/dashboard', { replace: true })}>
-        Test Navigate
-      </button>
 
       <p>
         {isRegister ? 'Already have an account?' : "Don't have an account?"}{' '}
