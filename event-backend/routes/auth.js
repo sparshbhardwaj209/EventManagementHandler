@@ -65,21 +65,21 @@ router.post("/login", async (req, res) => {
 });
 
 // Guest Login (No password)
-router.post("/guest", async (req, res) => {
-  try {
-    const guest = new User({ role: "guest" });
-    await guest.save();
+// router.post("/guest", async (req, res) => {
+//   try {
+//     const guest = new User({ role: "guest" });
+//     await guest.save();
 
-    const token = jwt.sign({ userId: guest._id }, JWT_SECRET);
+//     const token = jwt.sign({ userId: guest._id }, JWT_SECRET);
 
-    res.status(201).json({
-      token,
-      userId: guest._id,
-      role: guest.role,
-    });
-  } catch (err) {
-    res.status(500).json({ message: "Server error" });
-  }
-});
+//     res.status(201).json({
+//       token,
+//       userId: guest._id,
+//       role: guest.role,
+//     });
+//   } catch (err) {
+//     res.status(500).json({ message: "Server error" });
+//   }
+// });
 
 export default router;

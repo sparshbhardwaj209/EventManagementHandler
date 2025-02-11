@@ -9,21 +9,32 @@ function PrivateRoute({ children }) {
   return user ? children : <Navigate to="/login" />;
 }
 
-function App() {
+// function App() {
+//   return (
+//     <Routes>
+//       <Route path="/login" element={<Auth />} />
+//       <Route
+//         path="/dashboard"
+//         element={
+//           <PrivateRoute>
+//             <Dashboard />
+//           </PrivateRoute>
+//         }
+//       />
+//       <Route path="/" element={<Navigate to="/login" />} />
+//     </Routes>
+//   );
+// }
+
+// export default App;
+
+
+export default function App() {
   return (
     <Routes>
       <Route path="/login" element={<Auth />} />
-      <Route
-        path="/dashboard"
-        element={
-          <PrivateRoute>
-            <Dashboard />
-          </PrivateRoute>
-        }
-      />
+      <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
       <Route path="/" element={<Navigate to="/login" />} />
     </Routes>
   );
 }
-
-export default App;

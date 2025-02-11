@@ -2,6 +2,7 @@ import express from "express";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/auth.js";
 import eventRoutes from "./routes/events.js";
+import guestRoutes from './routes/guest.js';
 import http from 'http';
 import { Server } from 'socket.io';
 import "dotenv/config";
@@ -26,6 +27,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use('/api/guest', guestRoutes);
 app.use("/api/events", eventRoutes);
 
 // Socket.io
