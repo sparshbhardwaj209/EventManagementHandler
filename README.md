@@ -69,8 +69,7 @@ Welcome to the **Event Management Platform**! This full-stack web application al
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/event-management-platform.git
-cd event-management-platform
+git clone https://github.com/sparshbhardwaj209/EventManagementHandler.git
 ```
 
 ### Backend Setup
