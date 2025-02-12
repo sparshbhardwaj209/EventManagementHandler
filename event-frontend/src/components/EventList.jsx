@@ -58,16 +58,6 @@ export default function EventList({ events, setEvents }) {
           },
         }
       );
-      setEvents((prevEvents) =>
-        prevEvents.map((e) =>
-          e._id === id
-            ? {
-                ...e,
-                attendees: [...getAttendeeIds(e.attendees), currentUserId],
-              }
-            : e
-        )
-      );
       alert("You are now attending this event.");
     } catch (error) {
       console.error("Error attending event", error.response || error.message);
@@ -93,19 +83,6 @@ export default function EventList({ events, setEvents }) {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
-      );
-      // Optimistically update state: remove user's id from attendees array
-      setEvents((prevEvents) =>
-        prevEvents.map((e) =>
-          e._id === id
-            ? {
-                ...e,
-                attendees: getAttendeeIds(e.attendees).filter(
-                  (attId) => attId !== currentUserId
-                ),
-              }
-            : e
-        )
       );
       alert("You have withdrawn your attendance.");
     } catch (error) {
