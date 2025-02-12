@@ -124,4 +124,53 @@ cd event-management-platform
    npm start
     ```
 
+## 🔍 Usage
+
+### Registration & Login
+- Register/Login: Users can register or login with their credentials.
+- Guest Login: A "Guest Login" option is available for users who want to view events without creating an account.
+
+### Event Dashboard
+- **Dashboard:** Once logged in, users are redirected to the dashboard.
+    - **Regular users:** Can create new events.
+    - **Guest users:** Can only view events.
+
+- **Filtering**
+    - Use the filter option (located in the event list header, on the right side) to filter events by:
+    - All Events
+    - Upcoming Events
+    - Past Events
+    - Recently Added Events
+
+  ### Real-Time Updates
+  - **Socket.IO Integration:**
+      - When a user attends or withdraws from an event, all connected clients receive real-time updates without needing to refresh the page.
+
+  ### Image Upload
+  - **Optional Image Upload:**
+      - During event creation, users can upload an optional image (max 500KB) that is stored on Cloudinary.
    
+  ### Logout
+  - **Logout Button:**
+      - Click the Logout button (located in the top right corner of the dashboard) to end the session and return to the login screen.
+   
+
+## 🎯 Achievements & Future Enhancements
+
+### Achievements
+- Implemented secure JWT-based authentication.
+- Integrated real-time updates for event attendance using Socket.IO.
+- Cloudinary integration for optional image uploads.
+- Advanced filtering options for an enhanced user experience.
+
+### Future Enhancements
+- Add user profile pages and the ability to update profile information.
+- Implement more advanced filtering (e.g., by event category or location).
+- Add pagination for event lists.
+- Integrate email notifications for event updates.
+
+
+
+
+
+  
