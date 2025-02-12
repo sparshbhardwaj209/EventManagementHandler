@@ -8,9 +8,6 @@ export default function EventList({ events, setEvents }) {
   const currentUserId = user && user._id ? user._id.toString() : "";
 
   // Helper: convert an array of IDs to strings
-  // const getAttendeeIds = (attendees) => {
-  //   return attendees ? attendees.map((id) => id.toString()) : [];
-  // };
   const getAttendeeIds = (attendees) => {
     return Array.isArray(attendees)
       ? attendees.map((id) => (id ? id.toString() : ""))
@@ -36,14 +33,7 @@ export default function EventList({ events, setEvents }) {
     // Check if user is already attending
     const event = events.find((e) => e._id === id);
     const attendeeIds = getAttendeeIds(event?.attendees);
-    // if (event && event.attendees && event.attendees.includes(user._id)) {
-    //   alert("You have already registered for the event");
-    //   return;
-    // }
-    // if (attendeeIds.includes(user._id.toString())) {
-    //   alert("You have already registered for the event");
-    //   return;
-    // }
+   
     if (attendeeIds.includes(currentUserId)) {
       alert("You have already registered for the event");
       return;
@@ -58,14 +48,6 @@ export default function EventList({ events, setEvents }) {
           },
         }
       );
-      // Optimistically update state: add user's id to attendees array
-      // setEvents((prevEvents) =>
-      //   prevEvents.map((e) =>
-      //     e._id === id
-      //       ? { ...e, attendees: [...(e.attendees || []), user._id] }
-      //       : e
-      //   )
-      // );
       setEvents((prevEvents) =>
         prevEvents.map((e) =>
           e._id === id
@@ -84,10 +66,7 @@ export default function EventList({ events, setEvents }) {
     // Check if user is currently attending
     const event = events.find((e) => e._id === id);
     const attendeeIds = getAttendeeIds(event?.attendees);
-    // if (!event || !event.attendees || !event.attendees.includes(user._id)) {
-    //   alert("You are not registered for this event");
-    //   return;
-    // }
+    
     if (!attendeeIds.includes(currentUserId)) {
       alert("You are not registered for this event");
       return;
@@ -103,16 +82,6 @@ export default function EventList({ events, setEvents }) {
         }
       );
       // Optimistically update state: remove user's id from attendees array
-      // setEvents((prevEvents) =>
-      //   prevEvents.map((e) =>
-      //     e._id === id
-      //       ? {
-      //           ...e,
-      //           attendees: e.attendees.filter((attId) => attId !== user._id),
-      //         }
-      //       : e
-      //   )
-      // );
       setEvents((prevEvents) =>
         prevEvents.map((e) =>
           e._id === id
@@ -135,74 +104,10 @@ export default function EventList({ events, setEvents }) {
     }
   };
 
-  // return (
-  //   <div className="event-list">
-  //     <h2>Event List</h2>
-  //     {events.map((event) => (
-  //       <div key={event._id} className="event-item">
-  //         <h3>{event.title}</h3>
-  //         {event.imageUrl && (
-  //           <img
-  //             src={event.imageUrl}
-  //             alt={event.title}
-  //             style={{ maxWidth: "100%", height: "auto", marginBottom: "10px" }}
-  //           />
-  //         )}
-  //         <p>{event.description}</p>
-  //         <p>Date: {new Date(event.date).toLocaleDateString()}</p>
-  //         <p>Location: {event.location}</p>
-  //         <button onClick={() => handleDelete(event._id)}>Delete Event</button>
-  //       </div>
-  //     ))}
-  //   </div>
-  // );
-
-  // return (
-  //   <div className="event-list">
-  //     <h2>Event List</h2>
-  //     {events.map((event) => {
-  //       // Determine if the current user is registered for the event
-  //       const isAttending =
-  //         event.attendees && event.attendees.includes(user._id);
-  //       return (
-  //         <div key={event._id} className="event-item">
-  //           <h3>{event.title}</h3>
-  //           {event.imageUrl && (
-  //             <img
-  //               src={event.imageUrl}
-  //               alt={event.title}
-  //               style={{
-  //                 maxWidth: "100%",
-  //                 height: "auto",
-  //                 marginBottom: "10px",
-  //               }}
-  //             />
-  //           )}
-  //           <p>{event.description}</p>
-  //           <p>Date: {new Date(event.date).toLocaleDateString()}</p>
-  //           <p>Location: {event.location}</p>
-  //           <p>Attendees: {event.attendees ? event.attendees.length : 0}</p>
-  //           {isAttending ? (
-  //             <button onClick={() => handleWithdraw(event._id)}>
-  //               Withdraw
-  //             </button>
-  //           ) : (
-  //             <button onClick={() => handleAttend(event._id)}>Attend</button>
-  //           )}
-  //           <button onClick={() => handleDelete(event._id)}>
-  //             Delete Event
-  //           </button>
-  //         </div>
-  //       );
-  //     })}
-  //   </div>
-  // );
-
   return (
     <div className="event-list">
       <h2>Event List</h2>
       {events.map((event) => {
-        // Determine if the current user is registered for the event (using string conversion)
         const isAttending =
           event.attendees &&
           getAttendeeIds(event.attendees).includes(currentUserId);

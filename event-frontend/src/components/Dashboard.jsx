@@ -10,36 +10,6 @@ export default function Dashboard() {
 
   // const socket = io(process.env.REACT_APP_API_URL);
 
-  // useEffect(() => {
-  //   const fetchEvents = async () => {
-  //     try {
-  //       const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/events`, {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem('token')}`
-  //         }
-  //       });
-  //       setEvents(res.data);
-  //     } catch (error) {
-  //       console.error('Error fetching events', error);
-  //     }
-  //   };
-
-  //   fetchEvents();
-
-  //   socket.on('eventUpdated', (updatedEvent) => {
-  //     setEvents((prevEvents) =>
-  //       prevEvents.map((event) =>
-  //         event._id === updatedEvent._id ? updatedEvent : event
-  //       )
-  //     );
-  //   });
-
-  //   // Cleanup on unmount
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, []);
-
   useEffect(() => {
     // Fetch events from the backend
     const fetchEvents = async () => {

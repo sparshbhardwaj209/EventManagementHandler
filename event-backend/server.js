@@ -5,7 +5,6 @@ import eventRoutes from "./routes/events.js";
 import guestRoutes from './routes/guest.js';
 import http from 'http';
 import { Server } from 'socket.io';
-// import "dotenv/config";
 import dotenv from 'dotenv';
 dotenv.config();
 import cors from "cors";
@@ -35,13 +34,6 @@ app.use('/api/guest', guestRoutes);
 app.use("/api/events", eventRoutes);
 
 // Socket.io
-// io.on("connection", (socket) => {
-//   console.log("New client connected");
-//   socket.on("joinEvent", (eventId) => {
-//     socket.join(eventId);
-//   });
-// });
-
 io.on('connection', (socket) => {
   console.log('A client connected');
 
