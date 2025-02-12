@@ -63,7 +63,7 @@ export default function Dashboard() {
     // Create and subscribe to Socket.IO events
     const socket = io(process.env.REACT_APP_API_URL);
 
-    socket.on("eventUpdated", (updatedEvent) => {
+    socket.on("attendeeUpdated", (updatedEvent) => {
       setEvents((prevEvents) =>
         prevEvents.map((event) =>
           event._id === updatedEvent._id ? updatedEvent : event

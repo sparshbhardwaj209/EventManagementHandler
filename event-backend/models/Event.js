@@ -30,6 +30,11 @@ const eventSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    attendees: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: []
+    }],
   },
   { timestamps: true }
 );

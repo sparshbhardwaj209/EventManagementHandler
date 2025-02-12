@@ -19,9 +19,11 @@ const io = new Server(server, {
   cors: {
     origin: process.env.CLIENT_URL,
     // origin: "*",
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "DELETE"],
   },
 });
+
+app.locals.io = io;
 
 connectDB();
 app.use(cors());
