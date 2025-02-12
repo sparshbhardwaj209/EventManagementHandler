@@ -33,7 +33,7 @@ export default function EventList({ events, setEvents }) {
     // Check if user is already attending
     const event = events.find((e) => e._id === id);
     const attendeeIds = getAttendeeIds(event?.attendees);
-   
+
     if (attendeeIds.includes(currentUserId)) {
       alert("You have already registered for the event");
       return;
@@ -51,7 +51,10 @@ export default function EventList({ events, setEvents }) {
       setEvents((prevEvents) =>
         prevEvents.map((e) =>
           e._id === id
-            ? { ...e, attendees: [...getAttendeeIds(e.attendees), currentUserId] }
+            ? {
+                ...e,
+                attendees: [...getAttendeeIds(e.attendees), currentUserId],
+              }
             : e
         )
       );
@@ -66,7 +69,7 @@ export default function EventList({ events, setEvents }) {
     // Check if user is currently attending
     const event = events.find((e) => e._id === id);
     const attendeeIds = getAttendeeIds(event?.attendees);
-    
+
     if (!attendeeIds.includes(currentUserId)) {
       alert("You are not registered for this event");
       return;
@@ -129,13 +132,14 @@ export default function EventList({ events, setEvents }) {
             <p>Date: {new Date(event.date).toLocaleDateString()}</p>
             <p>Location: {event.location}</p>
             <p>Attendees: {event.attendees ? event.attendees.length : 0}</p>
-            {isAttending ? (
-              <button onClick={() => handleWithdraw(event._id)}>
-                Withdraw
-              </button>
-            ) : (
-              <button onClick={() => handleAttend(event._id)}>Attend</button>
-            )}
+            {user.role !== "guest" &&
+              (isAttending ? (
+                <button onClick={() => handleWithdraw(event._id)}>
+                  Withdraw
+                </button>
+              ) : (
+                <button onClick={() => handleAttend(event._id)}>Attend</button>
+              ))}
             <button onClick={() => handleDelete(event._id)}>
               Delete Event
             </button>

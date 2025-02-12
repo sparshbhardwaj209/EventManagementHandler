@@ -1,12 +1,14 @@
-// src/components/Dashboard.jsx
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
 import EventList from "./EventList";
 import CreateEvent from "./CreateEvent";
+import { useAuth } from "../context/authContext";
+
 
 export default function Dashboard() {
   const [events, setEvents] = useState([]);
+  const { user } = useAuth();
 
   // const socket = io(process.env.REACT_APP_API_URL);
 
@@ -50,8 +52,11 @@ export default function Dashboard() {
   return (
     <div className="dashboard-container">
       <h1>Event Dashboard</h1>
-      <CreateEvent setEvents={setEvents} />
+      {/* Only show CreateEvent if user is not a guest */}
+      {user && user.role !== "guest" && <CreateEvent setEvents={setEvents} />}
       <EventList events={events} setEvents={setEvents} />
+      {/* <CreateEvent setEvents={setEvents} />
+      <EventList events={events} setEvents={setEvents} /> */}
     </div>
   );
 }
