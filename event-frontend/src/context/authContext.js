@@ -1,34 +1,54 @@
-// src/context/authContext.js
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  const API_URL = process.env.REACT_APP_API_URL;
-  console.log("Backend API URL:", API_URL);
+  // Safely initialize user from localStorage:
+  const getInitialUser = () => {
+    const storedUser = localStorage.getItem("user");
+    console.log("Stored user from localStorage:", storedUser);
+    if (storedUser && storedUser !== "undefined") {
+      try {
+        return JSON.parse(storedUser);
+      } catch (error) {
+        console.error("Error parsing stored user:", error);
+        return null;
+      }
+    }
+    return null;
+  };
+
+  const [user, setUser] = useState(getInitialUser);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   const login = async (email, password) => {
     try {
+      console.log("Attempting to login with:", email);
       const res = await axios.post(
-        `${API_URL}/api/auth/login`,
-        { email, password },
-        { headers: { "Content-Type": "application/json" } }
+        `${process.env.REACT_APP_API_URL}/api/auth/login`,
+        { email, password }
       );
-      const loggedInUser = res.data.user || { email };
+      console.log("Login response:", res.data);
+      
+      const userObj = {
+        _id: res.data.userId,
+        role: res.data.role,
+        email: email, 
+      };
       localStorage.setItem("token", res.data.token);
-      setUser(loggedInUser);
-      alert("You are logged in successfully");
-      navigate("/dashboard", { replace: true });
+      localStorage.setItem("user", JSON.stringify(userObj));
+      setUser(userObj);
+      navigate("/dashboard");
     } catch (err) {
-      console.error(
-        "Login error:",
-        err.response ? err.response.data : err.message
-      );
+      console.error("Login failed:", err);
       alert("Login failed");
     }
   };
@@ -36,19 +56,13 @@ export function AuthProvider({ children }) {
   const register = async (email, password) => {
     try {
       await axios.post(
-        `${API_URL}/api/auth/register`,
-        { email, password },
-        { headers: { "Content-Type": "application/json" } }
+        `${process.env.REACT_APP_API_URL}/api/auth/register`,
+        { email, password }
       );
-      // localStorage.setItem('token', res.data.token);
-      // setUser(res.data.user);
       alert("User successfully registered. Now please log in.");
-      navigate("/login", { replace: true });
+      navigate("/login");
     } catch (err) {
-      console.error(
-        "Register error:",
-        err.response ? err.response.data : err.message
-      );
+      console.error("Registration failed:", err);
       alert("Registration failed");
     }
   };
@@ -56,35 +70,40 @@ export function AuthProvider({ children }) {
   const guestLogin = async () => {
     try {
       const res = await axios.post(
-        `${API_URL}/api/guest`,
+        `${process.env.REACT_APP_API_URL}/api/guest`,
         {},
         { headers: { "Content-Type": "application/json" } }
       );
-      const guestUser = res.data.user || { role: "guest" };
+      console.log("Guest login response:", res.data);
+      // Construct guest user object from response:
+      const guestUser = {
+        _id: res.data.userId || res.data.email, 
+        role: res.data.role || "guest",
+        email: res.data.email || "",
+      };
       localStorage.setItem("token", res.data.token);
-      // setUser(res.data.user);
+      localStorage.setItem("user", JSON.stringify(guestUser));
       setUser(guestUser);
       alert("You are logged in successfully as a guest");
-      navigate("/dashboard", { replace: true });
+      navigate("/dashboard");
     } catch (err) {
-      console.error(
-        "Guest login error:",
-        err.response ? err.response.data : err.message
-      );
+      console.error("Guest login failed:", err);
       alert("Guest login failed");
     }
   };
 
-  // Logout function: remove token, reset user, and navigate to login.
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setUser(null);
     navigate("/login");
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, guestLogin, logout }}>
-      {children}
+    <AuthContext.Provider
+      value={{ user, login, register, guestLogin, logout, loading }}
+    >
+      {loading ? <div>Loading...</div> : children}
     </AuthContext.Provider>
   );
 }
