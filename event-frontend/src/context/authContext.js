@@ -75,7 +75,7 @@ export function AuthProvider({ children }) {
         { headers: { "Content-Type": "application/json" } }
       );
       console.log("Guest login response:", res.data);
-      // Construct guest user object from response:
+      
       const guestUser = {
         _id: res.data.userId || res.data.email, 
         role: res.data.role || "guest",

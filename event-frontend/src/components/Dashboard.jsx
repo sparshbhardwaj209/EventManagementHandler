@@ -7,9 +7,9 @@ import { useAuth } from "../context/authContext";
 
 export default function Dashboard() {
   const [events, setEvents] = useState([]);
+  const [filter, setFilter] = useState("all");
   const { user, logout } = useAuth();
 
-  // const socket = io(process.env.REACT_APP_API_URL);
 
   useEffect(() => {
     // Fetch events from the backend
@@ -46,19 +46,56 @@ export default function Dashboard() {
     return () => {
       socket.disconnect();
     };
-  }, []); // No external dependencies here
+  }, []); 
+
+  const getFilteredEvents = () => {
+    let filtered = [...events];
+    const now = new Date();
+    if (filter === "upcoming") {
+      filtered = filtered.filter((event) => new Date(event.date) >= now);
+    } else if (filter === "past") {
+      filtered = filtered.filter((event) => new Date(event.date) < now);
+    } else if (filter === "recent") {
+      filtered = filtered.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+    }
+    return filtered;
+  };
 
   return (
     <div className="dashboard-container">
-      <header className="dashboard-header">
-        <h1>Event Dashboard</h1>
-        <button className="logout-button" onClick={logout}>
+      <header
+        className="dashboard-header"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "20px",
+        }}
+      >
+        <div className="header-left">
+          <h1>Event Dashboard</h1>
+        </div>
+        <button
+          className="logout-button"
+          onClick={logout}
+          style={{ marginLeft: "20px" }}
+        >
           Logout
         </button>
       </header>
+
       {/* Only show CreateEvent if user is not a guest */}
       {user && user.role !== "guest" && <CreateEvent setEvents={setEvents} />}
-      <EventList events={events} setEvents={setEvents} />
+      
+      <EventList
+        events={getFilteredEvents()}
+        setEvents={setEvents}
+        filter={filter}
+        setFilter={setFilter}
+      />
+      {/* <EventList events={getFilteredEvents()} setEvents={setEvents} /> */}
     </div>
   );
 }

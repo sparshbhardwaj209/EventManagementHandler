@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useAuth } from "../context/authContext";
+import FilterBar from "./FilterBar";
 
-export default function EventList({ events, setEvents }) {
+export default function EventList({ events, setEvents, filter, setFilter }) {
   const { user } = useAuth();
 
   // Safely get the current user's ID as a string.
@@ -96,7 +97,18 @@ export default function EventList({ events, setEvents }) {
 
   return (
     <div className="event-list">
-      <h2>Event List</h2>
+      <div
+        className="event-list-header"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "20px",
+        }}
+      >
+        <h2>Event List</h2>
+        <FilterBar filter={filter} setFilter={setFilter} />
+      </div>
       {events.map((event) => {
         const isAttending =
           event.attendees &&

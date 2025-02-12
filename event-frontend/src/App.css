@@ -92,6 +92,12 @@
   margin-bottom: 20px;
 }
 
+/* Filter Bar */
+.filter-bar {
+  display: flex;
+  align-items: center;
+}
+
 .dashboard-container h1 {
   font-size: 32px;
   margin-bottom: 20px;
@@ -172,6 +178,19 @@
   =================================== */
 .event-list {
   margin-top: 20px;
+}
+
+.event-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* FilterBar styling */
+.filter-bar select {
+  padding: 6px;
+  font-size: 14px;
 }
 
 .event-item {
