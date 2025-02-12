@@ -14,6 +14,16 @@ export default function EventList({ events, setEvents }) {
       : [];
   };
 
+  // Helper: Check if current user is the owner (organizer) of the event.
+  const isOwner = (event) => {
+    if (!event.organizer) return false;
+    const organizerId =
+      typeof event.organizer === "object"
+        ? event.organizer._id.toString()
+        : event.organizer.toString();
+    return organizerId === currentUserId;
+  };
+
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${process.env.REACT_APP_API_URL}/api/events/${id}`, {
@@ -140,9 +150,12 @@ export default function EventList({ events, setEvents }) {
               ) : (
                 <button onClick={() => handleAttend(event._id)}>Attend</button>
               ))}
-            <button onClick={() => handleDelete(event._id)}>
-              Delete Event
-            </button>
+            {/* Only show the delete button if the current user is the event owner */}
+            {isOwner(event) && (
+              <button onClick={() => handleDelete(event._id)}>
+                Delete Event
+              </button>
+            )}
           </div>
         );
       })}
