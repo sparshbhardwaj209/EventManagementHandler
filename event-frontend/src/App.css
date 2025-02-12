@@ -4,187 +4,208 @@
    Auth Component Styles
 =================================== */
 .auth-container {
-    width: 100%;
-    max-width: 400px;
-    margin: 50px auto;
-    background: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .auth-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
-  }
-  
-  .auth-container form {
-    margin-bottom: 15px;
-  }
-  
-  .auth-container form div {
-    margin-bottom: 15px;
-  }
-  
-  .auth-container label {
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
-  }
-  
-  .auth-container input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  .auth-container button {
-    width: 100%;
-    padding: 10px;
-    background: #3498db;
-    border: none;
-    border-radius: 4px;
-    color: #fff;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .auth-container button:hover {
-    background: #2980b9;
-  }
-  
-  .auth-container p {
-    text-align: center;
-    margin-top: 15px;
-    font-size: 14px;
-    color: #666;
-  }
-  
-  .auth-container span {
-    color: #3498db;
-    cursor: pointer;
-    text-decoration: underline;
-  }
-  
-  /* ================================
+  width: 100%;
+  max-width: 400px;
+  margin: 50px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.auth-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.auth-container form {
+  margin-bottom: 15px;
+}
+
+.auth-container form div {
+  margin-bottom: 15px;
+}
+
+.auth-container label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.auth-container input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.auth-container button {
+  width: 100%;
+  padding: 10px;
+  background: #3498db;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.auth-container button:hover {
+  background: #2980b9;
+}
+
+.auth-container p {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #666;
+}
+
+.auth-container span {
+  color: #3498db;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* ================================
      Dashboard Component Styles
   =================================== */
-  .dashboard-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .dashboard-container h1 {
-    font-size: 32px;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  /* ================================
+.dashboard-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Dashboard Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-container h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Logout Button */
+.logout-button {
+  background-color: #e74c3c;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #c0392b;
+}
+
+/* ================================
      CreateEvent Component Styles
   =================================== */
-  .create-event {
-    background: #fff;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .create-event h2 {
-    font-size: 28px;
-    margin-bottom: 15px;
-    color: #333;
-  }
-  
-  .create-event form {
-    margin-bottom: 15px;
-  }
-  
-  .create-event form div {
-    margin-bottom: 15px;
-  }
-  
-  .create-event label {
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
-  }
-  
-  .create-event input,
-  .create-event textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  .create-event button {
-    background: #2ecc71;
-    border: none;
-    border-radius: 4px;
-    color: #fff;
-    padding: 10px 15px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .create-event button:hover {
-    background: #27ae60;
-  }
-  
-  /* ================================
+.create-event {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.create-event h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.create-event form {
+  margin-bottom: 15px;
+}
+
+.create-event form div {
+  margin-bottom: 15px;
+}
+
+.create-event label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.create-event input,
+.create-event textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.create-event button {
+  background: #2ecc71;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  padding: 10px 15px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.create-event button:hover {
+  background: #27ae60;
+}
+
+/* ================================
      EventList Component Styles
   =================================== */
-  .event-list {
-    margin-top: 20px;
-  }
-  
-  .event-item {
-    background: #fff;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .event-item h3 {
-    font-size: 22px;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  .event-item p {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 5px;
-  }
-  
-  .event-item button {
-    background: #e74c3c;
-    margin: 3px;
-    border: none;
-    border-radius: 4px;
-    color: #fff;
-    padding: 8px 12px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .event-item button:hover {
-    background: #c0392b;
-  }
-  
+.event-list {
+  margin-top: 20px;
+}
+
+.event-item {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.event-item h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.event-item p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.event-item button {
+  background: #e74c3c;
+  margin: 3px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  padding: 8px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.event-item button:hover {
+  background: #c0392b;
+}

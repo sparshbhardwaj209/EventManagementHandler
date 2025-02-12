@@ -19,8 +19,6 @@ export function AuthProvider({ children }) {
         { email, password },
         { headers: { "Content-Type": "application/json" } }
       );
-      console.log("Login response:", res.data);
-
       const loggedInUser = res.data.user || { email };
       localStorage.setItem("token", res.data.token);
       setUser(loggedInUser);
@@ -37,12 +35,11 @@ export function AuthProvider({ children }) {
 
   const register = async (email, password) => {
     try {
-      const res = await axios.post(
+      await axios.post(
         `${API_URL}/api/auth/register`,
         { email, password },
         { headers: { "Content-Type": "application/json" } }
       );
-      console.log("Register response:", res.data);
       // localStorage.setItem('token', res.data.token);
       // setUser(res.data.user);
       alert("User successfully registered. Now please log in.");
@@ -58,14 +55,11 @@ export function AuthProvider({ children }) {
 
   const guestLogin = async () => {
     try {
-      console.log("Guest login triggered");
-      console.log("Using API URL:", API_URL);
       const res = await axios.post(
         `${API_URL}/api/guest`,
         {},
         { headers: { "Content-Type": "application/json" } }
       );
-      console.log("Guest login response:", res.data);
       const guestUser = res.data.user || { role: "guest" };
       localStorage.setItem("token", res.data.token);
       // setUser(res.data.user);
@@ -81,8 +75,15 @@ export function AuthProvider({ children }) {
     }
   };
 
+  // Logout function: remove token, reset user, and navigate to login.
+  const logout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/login");
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, register, guestLogin }}>
+    <AuthContext.Provider value={{ user, login, register, guestLogin, logout }}>
       {children}
     </AuthContext.Provider>
   );
